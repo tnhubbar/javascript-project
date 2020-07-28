@@ -5,10 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body {background-color: powderblue;}
+        h1 {color: blue}
+    </style>
     <title>Trial Patient Randomization</title>
   </head>
 
   <body>
+      <h1>Trial Patient Randomization</h1>
+
+        <div>
+          <form>
+                <label for="name">Full Name: </label>
+                <input type="text" id="name" name="name"><br>
+                <label for="dob">Date of Birth: </label>
+                <input type="text" id="dob" name="dob"><br>
+                <label for="gender">Gender </label>
+                <input type="text" id="gender" name="gender"><br>
+                <label for="factors">High Risk Factors: </label>
+                <input type="text" id="risk-factors" name="factors"><br>
+                <label for="effects">Side Effects: </label>
+                <input type="text" id="side-effects" name="effects"><br>
+                <input type="submit" value="Randomize">
+            </form>
+      </div>
     <script src="index.js"></script>
   </body>
 
