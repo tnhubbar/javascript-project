@@ -21,14 +21,18 @@
                 <input type="text" id="name" name="name"><br>
                 <label for="dob">Date of Birth: </label>
                 <input type="text" id="dob" name="dob"><br>
-                <label for="gender">Gender: </label>
-                <input type="text" id="gender" name="gender"><br>
+                <label for="gender">Gender: </label></br>
+                <input type="radio" id="gender" name="gender" value="male"> Male <br>
+                <input type="radio" id="gender" name="gender" value="female"> Female <br>
                 <label for="factors">High Risk Factors: </label>
-                <input type="text" id="risk-factors" name="factors"><br>
+                <input type="text_area" id="risk-factors" name="factors"><br>
                 <label for="effects">Side Effects: </label>
-                <input type="text" id="side-effects" name="effects"><br>
+                <input type="text_area" id="side-effects" name="effects"><br>
                 <input type="submit" value="Randomize">
             </form>
+      </div>
+      <div>
+          <p>You've been randomized. </p>
       </div>
     <script src="index.js"></script>
   </body>
