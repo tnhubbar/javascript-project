@@ -16,3 +16,6 @@ t.datetime "created_at", precision: 6, null: false
 t.datetime "updated_at", precision: 6, null: false
 
 Patient.new(name: 'Taryn', dob: '09-19-1990', gender: 'female', factors: 'none', effects: 'none', treatment_id: 1 )
+
+Treatment.create(name: "Treatment B", description: "Investigational Product")
+Treatment.create(name: "Treatment A", description: "Placebo") 

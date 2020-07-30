@@ -6,7 +6,7 @@ class CreatePatients < ActiveRecord::Migration[6.0]
       t.string :gender
       t.text :factors
       t.text :effects
-      t.belongs_to :treatment
+      t.integer :treatment_id 
 
       t.timestamps
     end
