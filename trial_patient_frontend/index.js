@@ -10,12 +10,25 @@ document.addEventListener('DOMContentLoaded', () => {
 //Statistics HTTP Get fetch Request 
 function getPatients(){
     //Get all the patients
+    let treatmentArray = []
     statArea.innerHTML = ""
     fetch(BASE_URL+"/patients")
     .then(resp => resp.json())
     .then(patients => { 
-        let treatmentA = patients.length 
-        statArea.innerHTML = `You have randomized ${treatmentA} patients to Treatment A`
+        console.log(patients)
+        patients.forEach((person, index, array) => {
+            console.log(person.treatment.name)
+            let treatment = new Treatment(person.treatment.id, person.treatment.name)
+            treatmentArray.push(treatment)
+        })
+        let treatmentA = treatmentArray.filter(function(treatment){ 
+            return treatment.name === "Treatment A"})
+        console.log(treatmentA.length)
+        let treatmentB = treatmentArray.filter(function(treatment){ 
+            return treatment.name === "Treatment B"})
+        console.log(treatmentB.length)
+
+        statArea.innerHTML = `You have randomized ${treatmentA.length} patients to Treatment A </br> And you have randomized ${treatmentB.length} patients to Treatment B.`
     })
 };
 
@@ -80,7 +93,7 @@ function sendData(newPtData){
     .then(resp => resp.json())
     .then(enteredData => {
         //do something with entered data(display new pt id)
-        statArea.innerHTML += `You've have been randomized to ${enteredData.treatment.name}. You patient id is ${enteredData.id}! Please retain this id for all further study related activities.`
+        statArea.innerHTML = `You've have been randomized to ${enteredData.treatment.name}. You patient id is ${enteredData.id}! Please retain this id for all further study related activities.`
         console.log(enteredData)
     })
     .catch(function(error){
