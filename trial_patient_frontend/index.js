@@ -5,7 +5,7 @@ let confirmationArea = document.querySelector('.confirmation')
 
 document.addEventListener('DOMContentLoaded', () => {
 
-})
+
 
 //Statistics HTTP Get fetch Request 
 function getPatients(){
@@ -14,8 +14,8 @@ function getPatients(){
     fetch(BASE_URL+"/patients")
     .then(resp => resp.json())
     .then(patients => { 
-        let numbers = patients.length 
-        statArea.innerHTML += `You have randomized ${numbers} patients to Treatment A`
+        let treatmentA = patients.length 
+        statArea.innerHTML = `You have randomized ${treatmentA} patients to Treatment A`
     })
 };
 
@@ -28,8 +28,9 @@ function listPatients(){
     .then(patients => { 
             console.log(patients)
             patients.forEach((person, index, array) => {
-                console.log(person.id);
-                statArea.innerHTML += `<div id=${person.id}> Patient ID: ${person.id} <button type="button" class="button" id="${person.id}" >Withdraw/Lost to Follow Up</button></br></br></div>`
+                let patient = new Patient(person.id, person.name, person.dob, person.gender, person.factors, person.effects, person.treatment.id, person.treatment.name)
+                console.log(patient);
+                patient.renderPatient()
             })
         
     });
@@ -43,7 +44,7 @@ function deletePatient(pid){
     })
     .then(resp => resp.json())
     .then(data => {
-        confirmationArea.innerHTML = `</br> <div> Patient ${data.id} has been deleted. </div></br>`
+        statArea.innerHTML = `</br> <div> Patient ${data.id} has been deleted. </div></br>`
         console.log(data)
     })
 }
@@ -113,3 +114,6 @@ deleteButtonArea.addEventListener('click', event => {
     deletePatient(number)
     {event.target.parentNode.remove()}
 })
+
+
+}); 
