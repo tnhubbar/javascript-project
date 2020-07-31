@@ -1,12 +1,13 @@
 const BASE_URL = "http://localhost:3000"
 const randomizationForm = document.querySelector('#randomization-form')
 let statArea = document.querySelector('.stats')
+let confirmationArea = document.querySelector('.confirmation')
 
 document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-//Statistics fetch Request Get 
+//Statistics HTTP Get fetch Request 
 function getPatients(){
     //Get all the patients
     statArea.innerHTML = ""
@@ -34,6 +35,18 @@ function listPatients(){
     });
 
 };
+
+//fetch request to delete user 
+function deletePatient(pid){
+    fetch(BASE_URL+`/patients/${pid}`, {
+        method: 'DELETE'
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        confirmationArea.innerHTML = `</br> <div> Patient ${data.id} has been deleted. </div></br>`
+        console.log(data)
+    })
+}
 
 
 //add listener to statistics link 
@@ -74,7 +87,7 @@ function sendData(newPtData){
     })
 };
 
-
+// randomizing patient and submitting data. 
 randomizationForm.addEventListener('submit', event => {
     event.preventDefault()
     let ptData = {
@@ -90,9 +103,13 @@ randomizationForm.addEventListener('submit', event => {
     form.reset()
 });
 
+// adding event listener to delete patients
 let deleteButtonArea = document.querySelector(".stats")
 deleteButtonArea.addEventListener('click', event => {
     event.preventDefault()
+    let number 
     if (event.target.type == "button") 
+    number = event.target.id 
+    deletePatient(number)
     {event.target.parentNode.remove()}
 })

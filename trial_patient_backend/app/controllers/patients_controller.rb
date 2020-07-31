@@ -10,6 +10,8 @@ class PatientsController < ApplicationController
 
   # GET /patients/1
   def show
+    @patient = Patient.find_by(id: params[:id])
+
     render json: @patient
   end
 
@@ -34,6 +36,8 @@ class PatientsController < ApplicationController
 
   # DELETE /patients/1
   def destroy
+    @patient = Patient.find_by(id: params[:id])
+    render json: @patient
     @patient.destroy
   end
 
