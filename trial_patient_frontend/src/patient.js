@@ -15,4 +15,9 @@ class Patient{
         let statArea = document.querySelector('.stats')
         statArea.innerHTML += `<div id=${this.id}> Patient ID: ${this.id} <button type="button" class="button" id="${this.id}" >Withdraw/Lost to Follow Up</button></br></br></div>`
     }
+
+    renderTreatment(){
+        let statArea = document.querySelector('.stats')
+        statArea.innerHTML = `You've have been randomized to ${this.treatmentName}. You patient id is ${this.id}! Please retain this id for all further study related activities.`
+    }
 }

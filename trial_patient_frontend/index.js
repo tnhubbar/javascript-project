@@ -7,31 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-//Statistics HTTP Get fetch Request 
-function getPatients(){
-    //Get all the patients
-    let treatmentArray = []
-    statArea.innerHTML = ""
-    fetch(BASE_URL+"/patients")
-    .then(resp => resp.json())
-    .then(patients => { 
-        console.log(patients)
-        patients.forEach((person, index, array) => {
-            console.log(person.treatment.name)
-            let treatment = new Treatment(person.treatment.id, person.treatment.name)
-            treatmentArray.push(treatment)
-        })
-        let treatmentA = treatmentArray.filter(function(treatment){ 
-            return treatment.name === "Treatment A"})
-        console.log(treatmentA.length)
-        let treatmentB = treatmentArray.filter(function(treatment){ 
-            return treatment.name === "Treatment B"})
-        console.log(treatmentB.length)
-
-        statArea.innerHTML = `You have randomized ${treatmentA.length} patients to Treatment A </br> And you have randomized ${treatmentB.length} patients to Treatment B.`
-    })
-};
-
 //Fetch request to get all patients
 function listPatients(){
     //Get all the patients
@@ -61,6 +36,31 @@ function deletePatient(pid){
         console.log(data)
     })
 }
+
+//Statistics HTTP Get fetch Request 
+function getPatients(){
+    //Get all the patients
+    let treatmentArray = []
+    statArea.innerHTML = ""
+    fetch(BASE_URL+"/patients")
+    .then(resp => resp.json())
+    .then(patients => { 
+        console.log(patients)
+        patients.forEach((person, index, array) => {
+            console.log(person.treatment.name)
+            let treatment = new Treatment(person.treatment.id, person.treatment.name)
+            treatmentArray.push(treatment)
+        })
+        let treatmentA = treatmentArray.filter(function(treatment){ 
+            return treatment.name === "Treatment A"})
+        console.log(treatmentA.length)
+        let treatmentB = treatmentArray.filter(function(treatment){ 
+            return treatment.name === "Treatment B"})
+        console.log(treatmentB.length)
+
+        statArea.innerHTML = `You have randomized ${treatmentA.length} patients to Treatment A </br> And you have randomized ${treatmentB.length} patients to Treatment B.`
+    })
+};
 
 
 //add listener to statistics link 
@@ -92,9 +92,9 @@ function sendData(newPtData){
     fetch("http://localhost:3000/patients", configObj)
     .then(resp => resp.json())
     .then(enteredData => {
-        //do something with entered data(display new pt id)
-        statArea.innerHTML = `You've have been randomized to ${enteredData.treatment.name}. You patient id is ${enteredData.id}! Please retain this id for all further study related activities.`
-        console.log(enteredData)
+        let patient = new Patient(enteredData.id, enteredData.name, enteredData.dob, enteredData.gender, enteredData.factors, enteredData.effects,  enteredData.treatment.id, enteredData.treatment.name)
+                console.log(patient);
+                patient.renderTreatment()
     })
     .catch(function(error){
         document.body.innerHTML = error.message
