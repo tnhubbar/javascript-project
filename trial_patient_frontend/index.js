@@ -34,7 +34,7 @@ function deletePatient(pid){
     })
 }
 
-//Statistics HTTP Get fetch Request 
+//Statistics HTTP Get fetch Request to get statistics of each treatment 
 function getPatients(){
     //Get all the patients
     let treatmentArray = []
