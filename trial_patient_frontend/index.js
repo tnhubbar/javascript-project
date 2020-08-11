@@ -14,10 +14,8 @@ function listPatients(){
     fetch(BASE_URL+"/patients")
     .then(resp => resp.json())
     .then(patients => { 
-            console.log(patients)
             patients.forEach((person, index, array) => {
                 let patient = new Patient(person.id, person.name, person.dob, person.gender, person.factors, person.effects, person.treatment.id, person.treatment.name)
-                console.log(patient);
                 patient.renderPatient()
             })
         
@@ -33,7 +31,6 @@ function deletePatient(pid){
     .then(resp => resp.json())
     .then(data => {
         statArea.innerHTML = `</br> <div> Patient ${data.id} has been deleted. </div></br>`
-        console.log(data)
     })
 }
 
@@ -44,19 +41,15 @@ function getPatients(){
     statArea.innerHTML = ""
     fetch(BASE_URL+"/patients")
     .then(resp => resp.json())
-    .then(patients => { 
-        console.log(patients)
+    .then(patients => {
         patients.forEach((person, index, array) => {
-            console.log(person.treatment.name)
             let treatment = new Treatment(person.treatment.id, person.treatment.name)
             treatmentArray.push(treatment)
         })
         let treatmentA = treatmentArray.filter(function(treatment){ 
             return treatment.name === "Treatment A"})
-        console.log(treatmentA.length)
         let treatmentB = treatmentArray.filter(function(treatment){ 
             return treatment.name === "Treatment B"})
-        console.log(treatmentB.length)
 
         statArea.innerHTML = `You have randomized ${treatmentA.length} patients to Treatment A </br> And you have randomized ${treatmentB.length} patients to Treatment B.`
     })
@@ -93,7 +86,6 @@ function sendData(newPtData){
     .then(resp => resp.json())
     .then(enteredData => {
         let patient = new Patient(enteredData.id, enteredData.name, enteredData.dob, enteredData.gender, enteredData.factors, enteredData.effects,  enteredData.treatment.id, enteredData.treatment.name)
-                console.log(patient);
                 patient.renderTreatment()
     })
     .catch(function(error){

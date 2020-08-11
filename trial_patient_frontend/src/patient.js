@@ -21,3 +21,6 @@ class Patient{
         statArea.innerHTML = `You've have been randomized to ${this.treatmentName}. You patient id is ${this.id}! Please retain this id for all further study related activities.`
     }
 }
+
+
+

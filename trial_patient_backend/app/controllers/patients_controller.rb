@@ -8,12 +8,7 @@ class PatientsController < ApplicationController
     render json: @patients
   end
 
-  # GET /patients/1
-  def show
-    @patient = Patient.find_by(id: params[:id])
-
-    render json: @patient
-  end
+ 
 
   # POST /patients
   def create
