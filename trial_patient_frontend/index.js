@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function listPatients(){
     //Get all the patients
     statArea.innerHTML = ""
+    confirmationArea.style.display = "none"
     fetch(BASE_URL+"/patients")
     .then(resp => resp.json())
     .then(patients => { 
@@ -37,7 +38,9 @@ function deletePatient(pid){
 //Statistics HTTP Get fetch Request to get statistics of each treatment 
 function getPatients(){
     //Get all the patients
+    confirmationArea.style.display = "block"
     let treatmentArray = []
+    let personArray = []
     statArea.innerHTML = ""
     fetch(BASE_URL+"/patients")
     .then(resp => resp.json())
@@ -45,13 +48,38 @@ function getPatients(){
         patients.forEach((person, index, array) => {
             let treatment = new Treatment(person.treatment.id, person.treatment.name)
             treatmentArray.push(treatment)
+            personArray.push(person)
         })
         let treatmentA = treatmentArray.filter(function(treatment){ 
             return treatment.name === "Treatment A"})
         let treatmentB = treatmentArray.filter(function(treatment){ 
             return treatment.name === "Treatment B"})
+        let treatmentAPeople = personArray.filter(function(person){
+            return person.treatment.name == "Treatment A"})
+        let treatmentBPeople = personArray.filter(function(person){
+            return person.treatment.name == "Treatment B"
+        })
 
-        statArea.innerHTML = `You have randomized ${treatmentA.length} patients to Treatment A </br> And you have randomized ${treatmentB.length} patients to Treatment B.`
+        confirmationArea.innerHTML = `You have randomized ${treatmentA.length}  patients to <a  id="treatmentA" href="" > Treatment A </a> </br> And you have randomized  ${treatmentB.length} patients to <a  id="treatmentB" href="" > Treatment B. </a>`
+        
+        let treatmentAButton = document.getElementById("treatmentA")
+        treatmentAButton.addEventListener("click", event => {
+            event.preventDefault()
+            confirmationArea.innerHTML = ` <div style="text-align:center;" ><b>The below Patients are on Treatment A: </b></br></br> 
+            ${treatmentAPeople.map((person) => ` Patient ID:   ${person.id}</br>`).join('')}
+            </div>`
+        })
+
+
+        let treatmentBButton = document.getElementById("treatmentB")
+        treatmentBButton.addEventListener("click", event => {
+            event.preventDefault()
+            confirmationArea.innerHTML = ` <div style="text-align:center;" ><b> The below Patients are on Treatment B: </b></br></br> 
+            ${treatmentBPeople.map((person) => ` Patient ID:   ${person.id}</br></br>`).join('')}
+            </div>`
+        })
+        
+
     })
 };
 
@@ -109,6 +137,7 @@ randomizationForm.addEventListener('submit', event => {
     form.reset()
 });
 
+
 // adding event listener to delete patients
 let deleteButtonArea = document.querySelector(".stats")
 deleteButtonArea.addEventListener('click', event => {
@@ -122,3 +151,5 @@ deleteButtonArea.addEventListener('click', event => {
 
 
 }); 
+
+//When I hit the stats button we want a list of all patients on that current treatment. And Sorted by creation date. //
