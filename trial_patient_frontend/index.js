@@ -57,16 +57,17 @@ function getPatients(){
         let treatmentAPeople = personArray.filter(function(person){
             return person.treatment.name == "Treatment A"})
         let treatmentBPeople = personArray.filter(function(person){
-            return person.treatment.name == "Treatment B"
-        })
-
+            return person.treatment.name == "Treatment B"})
+        const sortedTreatmentBPeople = treatmentBPeople.sort((a,b) => b.created_at - a.created_at )
+        const sortedTreatmentAPeople = treatmentAPeople.sort((a,b) => b.created_at - a.created_at )
+        
         confirmationArea.innerHTML = `You have randomized ${treatmentA.length}  patients to <a  id="treatmentA" href="" > Treatment A </a> </br> And you have randomized  ${treatmentB.length} patients to <a  id="treatmentB" href="" > Treatment B. </a>`
         
         let treatmentAButton = document.getElementById("treatmentA")
         treatmentAButton.addEventListener("click", event => {
             event.preventDefault()
             confirmationArea.innerHTML = ` <div style="text-align:center;" ><b>The below Patients are on Treatment A: </b></br></br> 
-            ${treatmentAPeople.map((person) => ` Patient ID:   ${person.id}</br>`).join('')}
+            ${sortedTreatmentAPeople.map((person) => ` Patient ID:   ${person.id}</br></br>`).join('')}
             </div>`
         })
 
@@ -75,7 +76,7 @@ function getPatients(){
         treatmentBButton.addEventListener("click", event => {
             event.preventDefault()
             confirmationArea.innerHTML = ` <div style="text-align:center;" ><b> The below Patients are on Treatment B: </b></br></br> 
-            ${treatmentBPeople.map((person) => ` Patient ID:   ${person.id}</br></br>`).join('')}
+            ${sortedTreatmentBPeople.map((person) => ` Patient ID:   ${person.id}</br></br>`).join('')}
             </div>`
         })
         
